@@ -1,0 +1,69 @@
+name: Release Please
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-please
+  cancel-in-progress: true
+
+jobs:
+  release-please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    steps:
+      - id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.GH_WARDEN_RELEASE_APP_ID }}
+          private-key: ${{ secrets.GH_WARDEN_RELEASE_APP_PRIVATE_KEY }}
+
+      - id: rp
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          config-file: release-please-config.json
+
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Update i18n catalog
+        if: ${{ steps.rp.outputs.prs_created == 'true' || steps.rp.outputs.prs_updated == 'true' }}
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          RP_PR_OUTPUT_JSON: ${{ steps.rp.outputs.prs }}
+        run: |
+          PR_NUMBER=$(echo "$RP_PR_OUTPUT_JSON" | jq -r '.[0].number')
+          gh pr checkout "$PR_NUMBER"
+
+      - name: Setup Node
+        if: ${{ steps.rp.outputs.prs_created == 'true' || steps.rp.outputs.prs_updated == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v3
+        if: ${{ steps.rp.outputs.prs_created == 'true' || steps.rp.outputs.prs_updated == 'true' }}
+        with:
+          version: 9
+
+      - name: Build and update i18n catalog
+        if: ${{ steps.rp.outputs.prs_created == 'true' || steps.rp.outputs.prs_updated == 'true' }}
+        run: |
+          pnpm install
+          pnpm i18n:extract
+          if git diff --quiet; then
+            echo "No changes to i18n catalog"
+          else
+            git config user.name "Warden CI"
+            git config user.email "warden-ci@users.noreply.github.com"
+            git add -A
+            git commit --signoff -m "chore: generate i18n catalog"
+            git push
+          fi
