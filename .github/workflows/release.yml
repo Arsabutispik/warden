@@ -56,7 +56,7 @@ jobs:
       - name: Build and update i18n catalog
         if: ${{ steps.rp.outputs.prs_created == 'true' || steps.rp.outputs.prs_updated == 'true' }}
         run: |
-          pnpm install
+          pnpm install --ignore-scripts
           pnpm i18n:extract
           if git diff --quiet; then
             echo "No changes to i18n catalog"
