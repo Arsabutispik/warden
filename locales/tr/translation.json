@@ -1,0 +1,8 @@
+{
+  "Language has been set to {{language}}": "",
+  "Please specify a language": "",
+  "Pong! The bot is working": "Pong! Bot çalışıyor",
+  "Pong! The bot is working. Latency: {{latency}}ms": "",
+  "This command can only be used in a server": "",
+  "Unsupported language: {{language}}": ""
+}
