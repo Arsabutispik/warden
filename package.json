@@ -8,6 +8,10 @@
     "onlyBuiltDependencies": [
       "@swc/core",
       "esbuild"
+    ],
+    "approvedBuilds": [
+      "@swc/core",
+      "esbuild"
     ]
   },
   "scripts": {
