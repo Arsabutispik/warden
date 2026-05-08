@@ -1,17 +1,17 @@
-# Build Stage
-FROM node:26-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+RUN corepack enable && corepack prepare pnpm@11 --activate
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts
 COPY . .
-RUN npm run build
+RUN pnpm build
 
-# Runner Stage
-FROM node:26-slim AS runner
+FROM node:24-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-COPY package*.json ./
-RUN npm ci --omit=dev
+RUN corepack enable && corepack prepare pnpm@11 --activate
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts --prod
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/drizzle ./drizzle
-CMD ["node", "dist/index.js"]
+COPY --from=builder /app/locales ./locales
+CMD ["sh", "-c", "node dist/db/migrate.js && node dist/index.js"]
