@@ -14,6 +14,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile --ignore-scripts --prod
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/locales ./locales
+COPY --from=builder /app/drizzle ./drizzle
 
 USER node
 
