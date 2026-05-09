@@ -1,11 +1,11 @@
-import i18next from 'i18next';
+import i18next from "i18next";
 
 export const initI18n = async () => {
-    const en = await import('../locales/en/translation.json', { with: { type: 'json' } });
-    const tr = await import('../locales/tr/translation.json', { with: { type: 'json' } });
+    const en = await import("../locales/en/translation.json", { with: { type: "json" } });
+    const tr = await import("../locales/tr/translation.json", { with: { type: "json" } });
 
     await i18next.init({
-        fallbackLng: 'en',
+        fallbackLng: "en",
         resources: {
             en: { translation: en.default },
             tr: { translation: tr.default },

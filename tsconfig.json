@@ -10,8 +10,18 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "#database": ["./src/database/index.ts"],
+      "#database/*": ["./src/database/*"],
+
+      "#lib": ["./src/lib/index.ts"],
+      "#lib/*": ["./src/lib/*"]
+    }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*",
+    "src/drizzle.config.ts"
+  ],
   "exclude": ["node_modules"]
 }

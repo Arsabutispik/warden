@@ -1,36 +1,28 @@
 import "reflect-metadata";
 import { Client } from "stoatx";
-import { env } from './config.js';
-import { initI18n, t } from './i18n.js';
-import { db } from './database/index.js';
-import { guilds } from './database/schema.js';
-import {getServerPrefix} from "./database/queries.js";
-import { logger } from './lib/logger.js';
+import { initI18n } from "./i18n.js";
+import { getServerPrefix } from "#database";
+import { logger, initRedis, env } from "#lib";
 
-logger.info('🚀 Starting Warden...');
+logger.info("🚀 Starting Warden...");
 
 const client = new Client({
-    prefix: async ({serverId}) => {
+    prefix: async ({ serverId }) => {
         return serverId ? await getServerPrefix(serverId) : "!";
     },
-    //extensions: env.NODE_ENV === 'development' ? ['.ts'] : ['.js']
-})
+    extensions: env.NODE_ENV === "development" ? [".ts"] : [".js"],
+});
+
 async function start() {
-    await client.initCommands();
-
     try {
+        logger.info("🚀 Starting Warden...");
+
         await initI18n();
-        logger.debug('i18n initialized');
-    } catch (err) {
-        logger.error({err}, 'Failed to initialize translations');
-        process.exit(1);
-    }
-
-    try {
+        await initRedis();
+        await client.initCommands();
         await client.loginBot(env.STOAT_TOKEN);
-        logger.debug('loginBot');
     } catch (err) {
-        logger.error(err);
+        logger.fatal({ err }, "Failed to start Warden");
         process.exit(1);
     }
 }

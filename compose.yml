@@ -7,8 +7,9 @@ services:
       db:
         condition: service_healthy
 
-  db:
+  database:
     image: postgres:16-alpine
+    container_name: warden-database
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: warden
@@ -17,3 +18,21 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: warden-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    command: redis-server --save 60 1 --loglevel warning
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+    redis-data:

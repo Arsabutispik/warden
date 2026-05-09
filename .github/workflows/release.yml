@@ -46,7 +46,7 @@ jobs:
         if: ${{ steps.rp.outputs.prs_created == 'true' || steps.rp.outputs.prs_updated == 'true' }}
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 26
 
       - uses: pnpm/action-setup@v3
         if: ${{ steps.rp.outputs.prs_created == 'true' || steps.rp.outputs.prs_updated == 'true' }}
