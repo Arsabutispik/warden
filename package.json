@@ -23,7 +23,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
-    "start": "node dist/db/migrate.js && node dist/index.js",
+    "start": "node dist/database/migrate.js && node dist/index.js",
     "db:generate": "drizzle-kit generate --config=src/drizzle.config.ts",
     "db:push": "drizzle-kit push --config=src/drizzle.config.ts",
     "db:pull": "drizzle-kit pull",
