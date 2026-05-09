@@ -54,6 +54,16 @@ We loosely follow [Conventional Commits](https://www.conventionalcommits.org/). 
 
 *Example: `feat: add warning threshold to auto-mod engine`*
 
+## Developer Certificate of Origin (DCO)
+
+To protect the project legally, Warden enforces a DCO. This means you must sign off on all your commits, certifying that you wrote the code or have the right to contribute it.
+
+To do this, simply add the `-s` (or `--signoff`) flag to your git commit command:
+
+`git commit -s -m "feat: add warning threshold to auto-mod"`
+
+If you forget to sign a commit, the DCO bot will fail your Pull Request.
+
 ## Submitting a Pull Request
 
 1.  Push your branch to your forked repository.
