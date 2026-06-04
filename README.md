@@ -91,6 +91,8 @@ mise install
 
 ```bash
 mise install:frozen
+# or if you change the package.json and want to update the lockfile:
+mise install:deps
 ```
 
 ### 3. Spin up local infrastructure (PostgreSQL & Redis):
