@@ -4,15 +4,15 @@ import { env } from "./config.js";
 const isDev = env.NODE_ENV === "development";
 
 export const logger = pino({
-    level: env.LOG_LEVEL,
-    transport: isDev
-        ? {
-              target: "pino-pretty",
-              options: {
-                  colorize: true,
-                  ignore: "pid,hostname",
-                  translateTime: "SYS:standard",
-              },
-          }
-        : undefined,
+  level: env.LOG_LEVEL,
+  transport: isDev
+    ? {
+        target: "pino-pretty",
+        options: {
+          colorize: true,
+          ignore: "pid,hostname",
+          translateTime: "SYS:standard",
+        },
+      }
+    : undefined,
 });

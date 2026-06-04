@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Extract i18n keys from the codebase."
+set -e
+
+pnpm run i18n:extract

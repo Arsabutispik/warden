@@ -3,16 +3,20 @@
 Warden is a high-performance, production-ready moderation and logging bot for the Stoat platform. Built with a modern TypeScript stack, it is designed for extreme reliability, lightning-fast response times, and seamless self-hosting via Docker.
 
 ## ✨ Features
-*(Note: This is a work in progress, and the feature list will be updated as development progresses.)*
+
+_(Note: This is a work in progress, and the feature list will be updated as development progresses.)_
 
 ## 🛠️ Tech Stack
+
 Warden leverages a bleeding-edge, fully type-safe infrastructure:
-* **Runtime:** [Node.js 26](https://nodejs.org/) (Native ESM & Subpath Imports)
-* **Language:** [TypeScript](https://www.typescriptlang.org/)
-* **Database:** [PostgreSQL](https://www.postgresql.org/) managed via [Drizzle ORM](https://orm.drizzle.team/)
-* **Caching:** [Redis](https://redis.io/)
-* **Package Manager:** [pnpm 11](https://pnpm.io/)
-* **Deployment:** [Docker](https://www.docker.com/) & Docker Compose
+
+- **Runtime:** [Node.js 26](https://nodejs.org/) (Native ESM & Subpath Imports)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Database:** [PostgreSQL](https://www.postgresql.org/) managed via [Drizzle ORM](https://orm.drizzle.team/)
+- **Caching:** [Redis](https://redis.io/)
+- **Package Manager:** [pnpm 11](https://pnpm.io/)
+- **Deployment:** [Docker](https://www.docker.com/) & Docker Compose
+- **Tooling:** [Mise](https://mise.jdx.dev/)
 
 ---
 
@@ -21,21 +25,27 @@ Warden leverages a bleeding-edge, fully type-safe infrastructure:
 The easiest way to run Warden is using the provided Docker Compose stack, which automatically provisions the database, cache, and bot environments.
 
 ### 1. Prerequisites
-* [Docker](https://docs.docker.com/get-docker/) and Docker Compose installed on your host machine.
-* A Stoat Bot Token.
+
+- [Docker](https://docs.docker.com/get-docker/) and Docker Compose installed on your host machine.
+- A Stoat Bot Token.
 
 ### 2. Clone the Repository
+
 ```bash
 git clone [https://github.com/yourusername/warden.git](https://github.com/yourusername/warden.git)
 cd warden
 ```
 
 ### 3. Configure Environment Variables
+
 Copy the example environment file and fill in your secure credentials:
+
 ```bash
 cp .env.example .env
 ```
+
 Edit `.env` and set the following variables:
+
 ```env
 # Bot Configuration
 STOAT_TOKEN=your_secure_bot_token_here
@@ -53,48 +63,71 @@ REDIS_URL=redis://redis:6379
 ```
 
 ### 4. Start the Services
+
 Spin up the entire stack in detached mode. The database migrations will automatically run before the bot boots up.
+
 ```bash
 docker-compose up -d --build
 ```
+
 To view logs:
+
 ```bash
 docker-compose logs -f warden
 ```
 
 ## 💻 Local Development
+
 If you want to contribute to Warden or run it locally without Docker orchestration:
 
-### 1. Install dependencies:
-Enable corepack and install the required packages:
+### 1. Install The Required Tools:
+
+Use mise to install the correct Node version and pnpm:
+
 ```bash
-npm install -g pnpm@11
-pnpm install
+mise install
 ```
 
-### 2. Spin up local infrastructure (PostgreSQL & Redis):
+### 2. Install Dependencies:
+
+```bash
+mise install:frozen
+# or if you change the package.json and want to update the lockfile:
+mise install:deps
+```
+
+### 3. Spin up local infrastructure (PostgreSQL & Redis):
+
 You can use the compose file just to host the required databases locally:
+
 ```bash
 docker compose up -d database redis
 ```
+
 (Ensure your local `.env` points to `localhost` for development instead of the Docker service names!)
 
-### 3. Database Management
+### 4. Database Management
+
 Warden uses Drizzle ORM. Whenever you change the schema (src/database/schema.ts), generate a new migration:
+
 ```bash
-pnpm run db:generate
+mise db:generate
 ```
+
 To push those changes to your local database:
+
 ```bash
-pnpm run db:push
+mise db:push
 ```
 
 ### 4. Start the Bot
+
 ```bash
-pnpm run dev
+mise dev
 ```
 
 ## 📂 Project Structure
+
 ```
 warden/
 ├── locales/         # i18n translation files
@@ -111,4 +144,5 @@ warden/
 ```
 
 ## 📜 License
+
 Warden is open-source software licensed under the [GNU General Public License v3.0](LICENSE).
