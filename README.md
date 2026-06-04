@@ -87,6 +87,7 @@ Use mise to install the correct Node version and pnpm:
 ```bash
 mise install
 ```
+
 ### 2. Install Dependencies:
 
 ```bash
