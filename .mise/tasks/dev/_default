@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Start the development server with hot reloading."
+set -e
+
+pnpm run dev

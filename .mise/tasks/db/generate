@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Generate the database schema and related files."
+set -e
+
+pnpm run db:generate

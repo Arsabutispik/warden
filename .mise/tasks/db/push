@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Push the local database schema and data to the remote database."
+set -e
+
+pnpm run db:push

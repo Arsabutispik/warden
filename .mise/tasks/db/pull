@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Pull the remote database schema and data to the local database."
+set -e
+
+pnpm run db:pull

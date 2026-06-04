@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Sync i18n keys with the translation service."
+set -e
+
+pnpm run i18n:sync
