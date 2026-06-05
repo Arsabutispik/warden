@@ -5,23 +5,12 @@
 
 Fixes # (issue)
 
-## Type of change
-
-<!-- Please delete options that are not relevant. -->
-
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] Documentation update
-- [ ] Chore (refactoring, dependency upgrades, etc.)
-
 ## How Has This Been Tested?
 
 <!-- Please describe the tests that you ran to verify your changes. Feel free to add more checklists if needed -->
 
-- [ ] Ran the bot locally via `pnpm run dev` and verified functionality.
-- [ ] Built and ran the Docker container successfully (`docker compose up --build`).
-- [ ] Verified database migrations applied cleanly (if applicable).
+- [ ] Test A
+- [ ] Test B
 
 ## Checklist:
 
