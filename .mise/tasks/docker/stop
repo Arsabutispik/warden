@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#MISE description="Stop the Docker containers without removing them."
+set -e
+
+set -a
+source .env
+set +a
+
+docker compose stop

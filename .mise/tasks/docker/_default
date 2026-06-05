@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#MISE description="Start the Docker containers using docker compose."
+set -e
+
+# Automatically export all variables defined in the .env file to the shell
+set -a
+source .env
+set +a
+
+# Now Docker Compose inherits the fully populated environment directly
+docker compose up -d

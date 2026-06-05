@@ -67,13 +67,13 @@ REDIS_URL=redis://redis:6379
 Spin up the entire stack in detached mode. The database migrations will automatically run before the bot boots up.
 
 ```bash
-docker-compose up -d --build
+mise docker
 ```
 
 To view logs:
 
 ```bash
-docker-compose logs -f warden
+docker compose logs -f warden
 ```
 
 ## 💻 Local Development
@@ -92,7 +92,7 @@ mise install
 
 ```bash
 mise install:frozen
-# or if you change the package.json and want to update the lockfile:
+# or if you changed the package.json and want to update the lockfile:
 mise install:deps
 ```
 
@@ -101,7 +101,7 @@ mise install:deps
 You can use the compose file just to host the required databases locally:
 
 ```bash
-docker compose up -d database redis
+mise docker:dev
 ```
 
 (Ensure your local `.env` points to `localhost` for development instead of the Docker service names!)
