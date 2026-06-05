@@ -12,9 +12,9 @@ ENV NODE_ENV=production
 RUN npm install -g pnpm@11
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile --ignore-scripts --prod
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/locales ./locales
-COPY --from=builder /app/drizzle ./drizzle
+COPY --chown=node:node --from=builder /app/dist ./dist
+COPY --chown=node:node --from=builder /app/locales ./locales
+COPY --chown=node:node --from=builder /app/drizzle ./drizzle
 
 USER node
 
